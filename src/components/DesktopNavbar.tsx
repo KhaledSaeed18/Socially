@@ -40,7 +40,9 @@ async function DesktopNavbar() {
                             </span>
                         </Link>
                     </Button>
-                    <UserButton />
+                    <div className="rounded-full bg-background size-6">
+                        <UserButton />
+                    </div>
                 </>
             ) : (
                 <SignInButton mode="modal">
