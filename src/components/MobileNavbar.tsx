@@ -10,7 +10,7 @@ import {
     UserIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
@@ -28,6 +28,7 @@ function MobileNavbar() {
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="mr-2"
+                aria-label="Toggle theme"
             >
                 <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -36,13 +37,20 @@ function MobileNavbar() {
 
             <Sheet open={showMobileMenu} onOpenChange={setShowMobileMenu}>
                 <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" aria-label="Open menu">
                         <MenuIcon className="h-5 w-5" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[300px]">
+                <SheetContent
+                    side="right"
+                    className="w-[300px]"
+                    aria-label="Navigation menu"
+                >
                     <SheetHeader>
                         <SheetTitle>Menu</SheetTitle>
+                        <SheetDescription className="sr-only">
+                            This is the navigation menu. Use the links to navigate through the application.
+                        </SheetDescription>
                     </SheetHeader>
                     <nav className="flex flex-col space-y-4 mt-6">
                         <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
