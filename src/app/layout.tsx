@@ -4,8 +4,11 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+// import Sidebar from "@/components/Sidebar";
 import { Toaster } from "react-hot-toast";
+import React from "react";
+
+const Sidebar = React.lazy(() => import("@/components/Sidebar"));
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -49,7 +52,9 @@ export default function RootLayout({
                 <div className="max-w-7xl mx-auto px-4">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                     <div className="hidden lg:block lg:col-span-3">
-                      <Sidebar />
+                      <React.Suspense fallback={<div>Loading...</div>}>
+                        <Sidebar />
+                      </React.Suspense>
                     </div>
                     <div className="col-span-1 md:col-span-12 lg:col-span-9">
                       {children}

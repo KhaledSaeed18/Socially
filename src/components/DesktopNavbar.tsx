@@ -20,7 +20,7 @@ async function DesktopNavbar() {
             </Button>
 
             {user ? (
-                <>
+                <div className="flex items-center">
                     <Button variant="ghost" className="flex items-center gap-2" asChild>
                         <Link href="/notifications">
                             <BellIcon className="w-4 h-4" />
@@ -40,10 +40,10 @@ async function DesktopNavbar() {
                             </span>
                         </Link>
                     </Button>
-                    <div className="rounded-full bg-background size-6">
+                    <div className="rounded-full bg-background">
                         <UserButton />
                     </div>
-                </>
+                </div>
             ) : (
                 <SignInButton mode="modal">
                     <Button variant="default">
