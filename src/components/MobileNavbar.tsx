@@ -54,7 +54,10 @@ function MobileNavbar() {
                     </SheetHeader>
                     <nav className="flex flex-col space-y-4 mt-6">
                         <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                            <Link href="/">
+                            <Link
+                                aria-label="Home"
+                                href="/"
+                            >
                                 <HomeIcon className="w-4 h-4" />
                                 Home
                             </Link>
@@ -63,13 +66,13 @@ function MobileNavbar() {
                         {isSignedIn ? (
                             <>
                                 <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                                    <Link href="/notifications">
+                                    <Link href="/notifications" aria-label="Notifications">
                                         <BellIcon className="w-4 h-4" />
                                         Notifications
                                     </Link>
                                 </Button>
                                 <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                                    <Link href="/profile">
+                                    <Link href="/profile" aria-label="Profile">
                                         <UserIcon className="w-4 h-4" />
                                         Profile
                                     </Link>

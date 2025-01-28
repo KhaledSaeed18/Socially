@@ -12,6 +12,7 @@ import { DeleteAlertDialog } from "./DeleteAlertDialog";
 import { Button } from "./ui/button";
 import { HeartIcon, LogInIcon, MessageCircleIcon, SendIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
+import Image from "next/image";
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
@@ -81,9 +82,15 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
             <CardContent className="p-4 sm:p-6">
                 <div className="space-y-4">
                     <div className="flex space-x-3 sm:space-x-4">
-                        <Link href={`/profile/${post.author.username}`}>
+                        <Link
+                            aria-label={`View ${post.author.username}'s profile`}
+                            href={`/profile/${post.author.username}`}
+                        >
                             <Avatar className="size-8 sm:w-10 sm:h-10">
-                                <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                <AvatarImage
+                                    alt={`User: ${post.author.username}`}
+                                    src={post.author.image ?? "/avatar.png"}
+                                />
                             </Avatar>
                         </Link>
 
@@ -92,6 +99,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
                                     <Link
                                         href={`/profile/${post.author.username}`}
+                                        aria-label={`View ${post.author.username}'s profile`}
                                         className="font-semibold truncate"
                                     >
                                         {post.author.name}
@@ -122,10 +130,13 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
 
                     {post.image && (
                         <div className="rounded-lg overflow-hidden">
-                            <img
+                            <Image
+                                width={500}
+                                height={500}
                                 src={post.image}
-                                alt="Post content"
+                                alt={`Post by ${post.author.username}`}
                                 className="w-full h-auto object-cover"
+                                priority
                             />
                         </div>
                     )}
@@ -178,7 +189,10 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                                 {post.comments.map((comment) => (
                                     <div key={comment.id} className="flex space-x-3">
                                         <Avatar className="size-8 flex-shrink-0">
-                                            <AvatarImage src={comment.author.image ?? "/avatar.png"} />
+                                            <AvatarImage
+                                                src={comment.author.image ?? "/avatar.png"}
+                                                alt={`User: ${comment.author.username}`}
+                                            />
                                         </Avatar>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -206,7 +220,10 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                             {user ? (
                                 <div className="flex space-x-3">
                                     <Avatar className="size-8 flex-shrink-0">
-                                        <AvatarImage src={user?.imageUrl || "/avatar.png"} />
+                                        <AvatarImage
+                                            src={user?.imageUrl || "/avatar.png"}
+                                            alt={`User: ${user?.username}`}
+                                        />
                                     </Avatar>
                                     <div className="flex-1">
                                         <Textarea
